@@ -56,10 +56,30 @@ class AccessKeys(db.Model):
     user = db.Column(db.String(200), db.ForeignKey('users.id'), nullable=True)
     datetime = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
-@app.route('/', methods=['POST', 'GET'])
-def main():
+@app.route('/objects', methods=['POST', 'GET'])
+def objects_render():
     
-    return render_template('index.html')
+    objects = Objects.query.all()
+    return render_template('objects.html', objects=objects)
+
+
+@app.route('/users', methods=['POST', 'GET'])
+def users_redner():
+    
+    users = Users.query.all()
+    return render_template('users.html', users=users)
+
+@app.route('/keys', methods=['POST', 'GET'])
+def keys_redner():
+    
+    keys = AccessKeys.query.all()
+    return render_template('keys.html', keys=keys)
+
+@app.route('/', methods=['POST', 'GET'])
+def auth_redner():
+    
+    return render_template('authorization.html')
+
 
 if __name__ == '__main__':
     db.create_all()
