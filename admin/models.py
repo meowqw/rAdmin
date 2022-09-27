@@ -1,18 +1,7 @@
+from flask_login import UserMixin
+
+from admin import db, manager
 from datetime import datetime, timedelta
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, jsonify, render_template, url_for, request, redirect, flash, request
-import os
-import config
-
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = 'secret'
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{config.DB_LOGIN}:{config.DB_PASS}@{config.DB_HOST}:{config.DB_PORT}/{config.DB_NAME}?charset=utf8mb4'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
-app_root = os.path.dirname(os.path.abspath(__file__))
 
 # DB Model USER
 class Users(db.Model):
@@ -55,37 +44,13 @@ class AccessKeys(db.Model):
     key = db.Column(db.String(400), nullable=True)
     user = db.Column(db.String(200), db.ForeignKey('users.id'), nullable=True)
     datetime = db.Column(db.DateTime, nullable=False, default=datetime.now())
-
-@app.route('/objects', methods=['POST', 'GET'])
-def objects_render():
     
-    objects = Objects.query.all()
-    return render_template('objects.html', objects=objects)
-
-
-@app.route('/users', methods=['POST', 'GET'])
-def users_redner():
+class UserAdmin(db.Model, UserMixin):
+    id = db.Column(db.Integer(), primary_key=True)
+    login = db.Column(db.String(128), nullable=False, unique=True)
+    password = db.Column(db.String(128), nullable=False)
     
-    users = Users.query.all()
-    return render_template('users.html', users=users)
 
-@app.route('/keys', methods=['POST', 'GET'])
-def keys_redner():
-    
-    keys = AccessKeys.query.all()
-    return render_template('keys.html', keys=keys)
-
-@app.route('/', methods=['POST', 'GET'])
-def auth_redner():
-    
-    return render_template('authorization.html')
-
-
-if __name__ == '__main__':
-    db.create_all()
-    app.config['SESSION_TYPE'] = 'filesystem'
-    app.config['JSON_AS_ASCII'] = False
-    app.run(debug=True, port=5005)
-    
-    
-    # Session(app)
+@manager.user_loader
+def load_user(user_id):
+    return UserAdmin.query.get(user_id)

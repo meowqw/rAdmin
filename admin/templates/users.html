@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="theme-color" content="#111111" />
-    <title>Objects</title>
+    <title>Users</title>
     <link
       rel="preload"
       href="/static/fonts/Rogoto-Regular.woff2"
@@ -103,9 +103,9 @@
               <button class="btn-reset header__btn" data-btn>
                 <span class="fa fa-solid fa-angle-left"></span>
               </button>
-              <a href="authorization.html" class="btn-reset btn">Войти</a>
+              <a href="/logout" class="btn-reset btn">Выйти</a>
             </div>
-            <nav class="nav header__nav" title="Меню">
+             <!--<nav class="nav header__nav" title="Меню">
               <ul class="list-reset nav__list header__list">
                 <li class="nav__item header__item">
                   <a href="#" class="btn"
@@ -150,7 +150,7 @@
                   >
                 </li>
               </ul>
-            </nav>
+            </nav> -->
           </div>
         </div>
       </header>
@@ -164,66 +164,104 @@
                   <thead class="table__head">
                     <tr class="table__tr">
                       <th class="table__th"></th>
-                      <th class="table__th"></th>
-                      <th class="table__th">Пользователь</th>
+                      <th class="table__th">id</th>
+                      <th class="table__th">Логин</th>
+                      <th class="table__th">Имя</th>
+                      <th class="table__th">Тел.</th>
+                      <th class="table__th">Стаж</th>
+                      <th class="table__th">Работа</th>
                       <th class="table__th">Регион</th>
                       <th class="table__th">Город</th>
-                      <th class="table__th">Район</th>
-                      <th class="table__th">Адрес</th>
-                      <th class="table__th">Комнаты</th>
-                      <th class="table__th">Этаж</th>
-                      <th class="table__th">Описание</th>
-                      <th class="table__th">Цена</th>
-                      <th class="table__th">Площадь</th>
-                      <th class="table__th">Тип имущ.</th>
-                      <th class="table__th">Тип соб.</th>
-                      <th class="table__th">Тел.</th>
-                      <th class="table__th">Дата окончания</th>
-                      <th class="table__th">Дата создания</th>
+                      <th class="table__th">Ключ</th>
+                      <th class="table__th">Дата регистрации</th>
                     </tr>
                   </thead>
                   <!-- body -->
-                  {% for object in objects%}
+                  {% for user in users%}
                   <tbody class="table__body">
                     <tr class="table__tr table__tr--gray">
+                   
                       <td class="table__td">
-                        <button class="btn-reset table__btn btn">
-                          <span class="fa fa-solid fa-folder"></span>Изменить</button>
-                      </td>
-                      <td class="table__td">
-                        <button class="btn-reset table__btn btn">
+                        <button class="btn-reset table__btn btn" onclick="window.location.replace('/del/users/{{user.id}}')">
                           <span class="fa fa-solid fa-folder"></span>Удалить</button>
                       </td>
-                      <td class="table__td">{{object.user}}</td>
-                      <td class="table__td">{{object.region}}</td>
-                      <td class="table__td">{{object.city}}</td>
-                      <td class="table__td">{{object.area}}</td>
-                      <td class="table__td">{{object.address}}</td>
-                      <td class="table__td">{{object.rooms}}</td>
-                      <td class="table__td">{{object.stage}}</td>
-                      <td class="table__td">{{object.description}}</td>
-                      <td class="table__td">{{object.price}}</td>
-                      <td class="table__td">{{object.quadrature}}</td>
-                      <td class="table__td">{{object.property_type}}</td>
-                      <td class="table__td">{{object.ownership_type}}</td>
-                      <td class="table__td">{{object.phone}}</td>
-                      <td class="table__td">{{object.date_end}}</td>
-                      <td class="table__td">{{object.datetime}}</td>
+                      <td class="table__td">{{user.id}}</td>
+                      <td class="table__td">{{user.login}}</td>
+                      <td class="table__td">{{user.fullname}}</td>
+                      <td class="table__td">{{user.phone}}</td>
+                      <td class="table__td">{{user.experience}}</td>
+                      <td class="table__td">{{user.job}}</td>
+                      <td class="table__td">{{user.region}}</td>
+                      <td class="table__td">{{user.city}}</td>
+                      <td class="table__td">{{user.key}}</td>
+                      <td class="table__td">{{user.datetime}}</td>
                     </tr>
                   </tbody>
                   {% endfor %}
                 </table>
-                <div class="items-page__bottom">
-                  <button class="btn-reset items-page__btn btn">
-                    <span class="fa fa-solid fa-folder"></span> Добавить
-                  </button>
-                </div>
+                
               </li>
             </ul>
           </div>
         </section>
       </main>
       <footer class="footer"><div class="container"></div></footer>
+    </div>
+    <div class="graph-modal">
+      <div
+        class="graph-modal__container"
+        role="dialog"
+        aria-modal="true"
+        data-graph-target="settings"
+      >
+        <div class="graph-modal__content">
+          <form action="#" class="form graph-modal__form" id="settings">
+            <!-- input -->
+            <label class="form__label"
+              >1
+              <input
+                type="text"
+                name="setting-1"
+                class="input-reset input input--max form__input"
+                placeholder="Настройка" /></label
+            ><!-- input -->
+            <label class="form__label"
+              >2
+              <input
+                type="text"
+                name="setting-1"
+                class="input-reset input input--max form__input"
+                placeholder="Настройка" /></label
+            ><!-- textarea -->
+            <label class="form__label"
+              >3
+              <textarea
+                name="setting-3"
+                class="input-reset textarea input input--max form__input"
+                placeholder="Настройка"
+              ></textarea></label
+            ><!-- checkbox -->
+            <label class="form__label form__label--modal custom-checkbox"
+              ><input type="checkbox" class="custom-checkbox__field" />
+              <span class="custom-checkbox__content">Label</span></label
+            ><!-- checkbox -->
+            <label class="form__label form__label--modal custom-checkbox"
+              ><input type="checkbox" class="custom-checkbox__field" />
+              <span class="custom-checkbox__content">Label</span></label
+            >
+            <div class="form__bottom">
+              <!-- btn -->
+              <button
+                type="submit"
+                form="settings"
+                class="btn-reset btn form__btn"
+              >
+                Сохранить
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>

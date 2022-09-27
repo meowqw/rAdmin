@@ -32,16 +32,27 @@
         <section class="authorization">
           <div class="container authorization__container">
             <h1 class="authorization__title">Log in</h1>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <ul class=flashes>
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          {% endwith %}
+          {% block body %}{% endblock %}
             <form
               action="#"
               class="authorization__form form"
               id="authorization"
+              method='POST'
             >
               <label class="form__label"
                 >Логин:
                 <input
                   type="text"
-                  name="Имя"
+                  name="login"
                   class="input-reset input form__input"
                   placeholder="Введите логин"
                   required
@@ -50,7 +61,7 @@
                 >Пароль:
                 <input
                   type="password"
-                  name="Пароль"
+                  name="password"
                   class="input-reset input form__input"
                   id="password-input"
                   placeholder="Введите пароль"

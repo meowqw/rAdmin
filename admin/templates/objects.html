@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="theme-color" content="#111111" />
-    <title>Keys</title>
+    <title>Objects</title>
     <link
       rel="preload"
       href="/static/fonts/Rogoto-Regular.woff2"
@@ -103,54 +103,9 @@
               <button class="btn-reset header__btn" data-btn>
                 <span class="fa fa-solid fa-angle-left"></span>
               </button>
-              <a href="authorization.html" class="btn-reset btn">Войти</a>
+              <a href="/logout" class="btn-reset btn">Выйти</a>
             </div>
-            <nav class="nav header__nav" title="Меню">
-              <ul class="list-reset nav__list header__list">
-                <li class="nav__item header__item">
-                  <a href="#" class="btn"
-                    ><span class="fa fa-solid fa-folder"></span>
-                    <span class="btn__text">Пункт 1</span></a
-                  >
-                </li>
-                <li class="nav__item header__item">
-                  <a href="#" class="btn"
-                    ><span class="fa fa-solid fa-folder"></span>
-                    <span class="btn__text">Пункт 2</span></a
-                  >
-                </li>
-                <li class="nav__item header__item">
-                  <a href="#" class="btn"
-                    ><span class="fa fa-solid fa-folder"></span>
-                    <span class="btn__text">Пункт 3</span></a
-                  >
-                </li>
-                <li class="nav__item header__item">
-                  <a href="#" class="btn"
-                    ><span class="fa fa-solid fa-folder"></span>
-                    <span class="btn__text">Пункт 4</span></a
-                  >
-                </li>
-                <li class="nav__item header__item">
-                  <a href="#" class="btn"
-                    ><span class="fa fa-solid fa-folder"></span>
-                    <span class="btn__text">Пункт 5</span></a
-                  >
-                </li>
-                <li class="nav__item header__item">
-                  <a href="#" class="btn"
-                    ><span class="fa fa-solid fa-folder"></span>
-                    <span class="btn__text">Пункт 6</span></a
-                  >
-                </li>
-                <li class="nav__item header__item">
-                  <a href="#" class="btn"
-                    ><span class="fa fa-solid fa-folder"></span>
-                    <span class="btn__text">Пункт 7</span></a
-                  >
-                </li>
-              </ul>
-            </nav>
+            
           </div>
         </div>
       </header>
@@ -164,27 +119,47 @@
                   <thead class="table__head">
                     <tr class="table__tr">
                       <th class="table__th"></th>
-                      <th class="table__th"></th>
-                      <th class="table__th">Ключ</th>
                       <th class="table__th">Пользователь</th>
+                      <th class="table__th">Регион</th>
+                      <th class="table__th">Город</th>
+                      <th class="table__th">Район</th>
+                      <th class="table__th">Адрес</th>
+                      <th class="table__th">Комнаты</th>
+                      <th class="table__th">Этаж</th>
+                      <th class="table__th">Описание</th>
+                      <th class="table__th">Цена</th>
+                      <th class="table__th">Площадь</th>
+                      <th class="table__th">Тип имущ.</th>
+                      <th class="table__th">Тип соб.</th>
+                      <th class="table__th">Тел.</th>
+                      <th class="table__th">Дата окончания</th>
                       <th class="table__th">Дата создания</th>
                     </tr>
                   </thead>
                   <!-- body -->
-                  {% for key in keys%}
+                  {% for object in objects%}
                   <tbody class="table__body">
                     <tr class="table__tr table__tr--gray">
+                      
                       <td class="table__td">
-                        <button class="btn-reset table__btn btn">
-                          <span class="fa fa-solid fa-folder"></span>Изменить</button>
-                      </td>
-                      <td class="table__td">
-                        <button class="btn-reset table__btn btn">
+                        <button class="btn-reset table__btn btn" onclick="window.location.replace('/del/objects/{{object.id}}')">
                           <span class="fa fa-solid fa-folder"></span>Удалить</button>
                       </td>
-                      <td class="table__td">{{key.key}}</td>
-                      <td class="table__td">{{key.user}}</td>
-                      <td class="table__td">{{key.datetime}}</td>
+                      <td class="table__td">{{object.user}}</td>
+                      <td class="table__td">{{object.region}}</td>
+                      <td class="table__td">{{object.city}}</td>
+                      <td class="table__td">{{object.area}}</td>
+                      <td class="table__td">{{object.address}}</td>
+                      <td class="table__td">{{object.rooms}}</td>
+                      <td class="table__td">{{object.stage}}</td>
+                      <td class="table__td">{{object.description}}</td>
+                      <td class="table__td">{{object.price}}</td>
+                      <td class="table__td">{{object.quadrature}}</td>
+                      <td class="table__td">{{object.property_type}}</td>
+                      <td class="table__td">{{object.ownership_type}}</td>
+                      <td class="table__td">{{object.phone}}</td>
+                      <td class="table__td">{{object.date_end}}</td>
+                      <td class="table__td">{{object.datetime}}</td>
                     </tr>
                   </tbody>
                   {% endfor %}
@@ -200,6 +175,62 @@
         </section>
       </main>
       <footer class="footer"><div class="container"></div></footer>
+    </div>
+    <div class="graph-modal">
+      <div
+        class="graph-modal__container"
+        role="dialog"
+        aria-modal="true"
+        data-graph-target="settings"
+      >
+        <div class="graph-modal__content">
+          <form action="#" class="form graph-modal__form" id="settings">
+            <!-- input -->
+            <label class="form__label"
+              >1
+              <input
+                type="text"
+                name="setting-1"
+                class="input-reset input input--max form__input"
+                placeholder="Настройка" /></label
+            ><!-- input -->
+            <label class="form__label"
+              >2
+              <input
+                type="text"
+                name="setting-1"
+                class="input-reset input input--max form__input"
+                placeholder="Настройка" /></label
+            ><!-- textarea -->
+            <label class="form__label"
+              >3
+              <textarea
+                name="setting-3"
+                class="input-reset textarea input input--max form__input"
+                placeholder="Настройка"
+              ></textarea></label
+            ><!-- checkbox -->
+            <label class="form__label form__label--modal custom-checkbox"
+              ><input type="checkbox" class="custom-checkbox__field" />
+              <span class="custom-checkbox__content">Label</span></label
+            ><!-- checkbox -->
+            <label class="form__label form__label--modal custom-checkbox"
+              ><input type="checkbox" class="custom-checkbox__field" />
+              <span class="custom-checkbox__content">Label</span></label
+            >
+            <div class="form__bottom">
+              <!-- btn -->
+              <button
+                type="submit"
+                form="settings"
+                class="btn-reset btn form__btn"
+              >
+                Сохранить
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>
