@@ -5,12 +5,14 @@ from flask_login import login_user, login_required, logout_user
 
 ################# objects ###################
 
+
 @app.route('/objects', methods=['POST', 'GET'])
 @login_required
 def objects_render():
-    
+
     objects = Objects.query.all()
     return render_template('objects.html', objects=objects)
+
 
 @app.route('/del/objects/<string:id>', methods=['POST', 'GET'])
 @login_required
@@ -21,15 +23,35 @@ def del_objects(id):
 
     return redirect(url_for('objects_render'))
 
+
+@app.route('/objects/search', methods=['POST', 'GET'])
+@login_required
+def objects_search():
+    """Search object"""
+    search = request.form.get('search')
+    objects_res = []
+    if search:
+        objects = Objects.query.all()
+        for i in objects:
+            obj_values = f"""{i.id}{i.user}
+            {i.region}{i.city}{i.area}
+            {i.address}{i.street}{i.rooms}{i.stage}
+            {i.description}{i.price}{i.quadrature}
+            {i.property_type}{i.ownership_type}{i.phone}"""
+            if search in obj_values:
+                objects_res.append(i)
+
+    return render_template('objects.html', objects=objects_res)
+
 ################# users ####################
+
 
 @app.route('/users', methods=['POST', 'GET'])
 @login_required
 def users_redner():
-    
+
     users = Users.query.all()
     return render_template('users.html', users=users)
-
 
 
 @app.route('/del/users/<string:id>', methods=['POST', 'GET'])
@@ -37,29 +59,45 @@ def users_redner():
 def del_users(id):
     """del key"""
     AccessKeys.query.filter_by(user=id).delete()
-    
+
     """del users"""
     Users.query.filter_by(id=id).delete()
-    
+
     db.session.commit()
 
     return redirect(url_for('users_redner'))
 
+@app.route('/users/search', methods=['POST', 'GET'])
+@login_required
+def users_search():
+    """Search user"""
+    search = request.form.get('search')
+    users_res = []
+    if search:
+        users = Users.query.all()
+        for i in users:
+            users_values = f"""{i.id}{i.login}{i.fullname}{i.phone}{i.experience}
+            {i.job}{i.region}{i.city}{i.key}"""
+            if search in users_values:
+                users_res.append(i)
+
+    return render_template('users.html', users=users_res)
+
+
 ################ keys #################
+
 
 @app.route('/keys', methods=['POST', 'GET'])
 @login_required
 def keys_redner():
-    
     """add key"""
     if request.method == "POST":
         db.session.add(AccessKeys(key=request.form['key']))
 
         db.session.commit()
 
-        
         return redirect(url_for('keys_redner'))
-    
+
     keys = AccessKeys.query.all()
     return render_template('keys.html', keys=keys)
 
@@ -73,22 +111,38 @@ def del_key(id):
 
     return redirect(url_for('keys_redner'))
 
+@app.route('/keys/search', methods=['POST', 'GET'])
+@login_required
+def keys_search():
+    """Search key"""
+    search = request.form.get('search')
+    keys_res = []
+    if search:
+        keys = AccessKeys.query.all()
+        for i in keys:
+            keys_values = f"""{i.id}{i.key}{i.user}"""
+            if search in keys_values:
+                keys_res.append(i)
+
+    return render_template('keys.html', keys=keys_res)
+
 ################# auth ##################
+
 
 @app.route('/', methods=['POST', 'GET'])
 def auth():
     """User authorization"""
     login = request.form.get('login')
     password = request.form.get('password')
-    
+
     if login and password:
         user = UserAdmin.query.filter_by(login=login).first()
-        
+
         if user.password == password:
             login_user(user)
-            
+
             next = request.args.get('next')
-            
+
             if next:
                 return redirect(next)
             else:
@@ -97,7 +151,7 @@ def auth():
             flash('Login or password is not correct')
     else:
         flash('Enter login and pass')
-    
+
     return render_template('authorization.html')
 
 
@@ -106,7 +160,6 @@ def auth():
 def logout():
     logout_user()
     return redirect(url_for('auth'))
-    
 
 
 @app.after_request

@@ -63,10 +63,10 @@
         </li>
       </ul>
       <!-- search -->
-      <form action="#" class="search sidebar__search">
+      <form action="/objects/search" method='POST' class="search sidebar__search">
         <input
           type="search"
-          name="Search"
+          name="search"
           class="input-reset search__input"
           placeholder="Поиск"
         />
@@ -164,11 +164,12 @@
                   </tbody>
                   {% endfor %}
                 </table>
-                <div class="items-page__bottom">
+                <!-- <div class="items-page__bottom">
                   <button class="btn-reset items-page__btn btn">
                     <span class="fa fa-solid fa-folder"></span> Добавить
                   </button>
-                </div>
+                </div>-->
+                
               </li>
             </ul>
           </div>
