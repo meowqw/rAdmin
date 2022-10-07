@@ -20,4 +20,3 @@ app_root = os.path.dirname(os.path.abspath(__file__))
 
 from admin import models, routes
 
-db.create_all()
