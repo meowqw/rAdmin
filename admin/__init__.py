@@ -18,5 +18,8 @@ manager = LoginManager(app)
 
 app_root = os.path.dirname(os.path.abspath(__file__))
 
+
 from admin import models, routes
 
+with app.app_context():
+    db.create_all()

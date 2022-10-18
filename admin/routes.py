@@ -1,6 +1,6 @@
 from admin import db, app
 from flask import Flask, jsonify, render_template, url_for, request, redirect, flash, request
-from admin.models import AccessKeys, Objects, Users, UserAdmin
+from admin.models import AccessKeys, Objects, Users, UserAdmin, Chats
 from flask_login import login_user, login_required, logout_user
 
 ################# objects ###################
@@ -125,6 +125,51 @@ def keys_search():
                 keys_res.append(i)
 
     return render_template('keys.html', keys=keys_res)
+
+
+################ chats #################
+
+
+@app.route('/chats', methods=['POST', 'GET'])
+@login_required
+def chats_redner():
+    """add chat"""
+    if request.method == "POST":
+        db.session.add(Chats(region=request.form['region'], link=request.form['link']))
+
+        db.session.commit()
+
+        return redirect(url_for('chats_redner'))
+
+    chats = Chats.query.all()
+    return render_template('chats.html', chats=chats)
+
+
+@app.route('/del/chats/<string:id>', methods=['POST', 'GET'])
+@login_required
+def del_chat(id):
+    """del chat"""
+    Chats.query.filter_by(id=id).delete()
+    db.session.commit()
+
+    return redirect(url_for('chats_redner'))
+
+@app.route('/chats/search', methods=['POST', 'GET'])
+@login_required
+def chats_search():
+    """Search chats"""
+    search = request.form.get('search')
+    chats_res = []
+    if search:
+        chats = Chats.query.all()
+        for i in chats:
+            chats_values = f"""{i.id}{i.region}{i.link}"""
+            if search in chats_values:
+                chats_res.append(i)
+
+    return render_template('chats.html', chats=chats_res)
+
+
 
 ################# auth ##################
 

@@ -169,23 +169,23 @@
                   <thead class="table__head">
                     <tr class="table__tr">
                       <th class="table__th"></th>
-                      <th class="table__th">Ключ</th>
-                      <th class="table__th">Пользователь</th>
+                      <th class="table__th">Регион</th>
+                      <th class="table__th">Ссылка</th>
                       <th class="table__th">Дата создания</th>
                     </tr>
                   </thead>
                   <!-- body -->
-                  {% for key in keys%}
+                  {% for chat in chats%}
                   <tbody class="table__body">
                     <tr class="table__tr table__tr--gray">
                       
                       <td class="table__td">
-                        <button class="btn-reset table__btn btn" onclick="window.location.replace('/del/keys/{{key.id}}')">
+                        <button class="btn-reset table__btn btn" onclick="window.location.replace('/del/chats/{{chat.id}}')">
                           <span class="fa fa-solid fa-folder"></span>Удалить</button>
                       </td>
-                      <td class="table__td">{{key.key}}</td>
-                      <td class="table__td">{{key.user}}</td>
-                      <td class="table__td">{{key.datetime}}</td>
+                      <td class="table__td">{{chat.region}}</td>
+                      <td class="table__td">{{chat.link}}</td>
+                      <td class="table__td">{{chat.datetime}}</td>
                     </tr>
                   </tbody>
                   {% endfor %}
@@ -210,16 +210,23 @@
         data-graph-target="settings"
       >
         <div class="graph-modal__content">
-          <form action="{{'/keys'}}" method="post" class="form graph-modal__form" id="settings">
+          <form action="{{'/chats'}}" method="post" class="form graph-modal__form" id="settings">
             <!-- input -->
             <label class="form__label"
-              >1
+              >
               <input
                 type="text"
-                name="key"
+                name="region"
                 class="input-reset input input--max form__input"
-                id='keyValue'
-                placeholder="key" /></label
+                placeholder="region" /></label
+            >
+            <label class="form__label"
+              >
+              <input
+                type="text"
+                name="link"
+                class="input-reset input input--max form__input"
+                placeholder="link" /></label
             >
             <div class="form__bottom">
               <!-- btn -->
@@ -236,23 +243,5 @@
       </div>
     </div>
   </body>
-
-<script>
-  // KEY GENERATION
-  function keyGen() {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  
-    for (var i = 0; i < 10; i++)
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-  
-    return text;
-  }
-
-  document.getElementById('addBtn').addEventListener('click', function() {
-    document.getElementById('keyValue').value = keyGen()
-  });
-
-</script>
 
 </html>

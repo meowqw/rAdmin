@@ -45,6 +45,15 @@ class AccessKeys(db.Model):
     user = db.Column(db.String(200), db.ForeignKey('users.id'), nullable=True)
     datetime = db.Column(db.DateTime, nullable=False, default=datetime.now())
     
+
+# DB model Chats
+class Chats(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    region = db.Column(db.String(200), nullable=True)
+    link = db.Column(db.String(200), nullable=True)
+    datetime = db.Column(db.DateTime, nullable=False, default=datetime.now())
+
+
 class UserAdmin(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)
     login = db.Column(db.String(128), nullable=False, unique=True)
@@ -54,3 +63,4 @@ class UserAdmin(db.Model, UserMixin):
 @manager.user_loader
 def load_user(user_id):
     return UserAdmin.query.get(user_id)
+
