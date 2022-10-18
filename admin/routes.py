@@ -2,6 +2,7 @@ from admin import db, app
 from flask import Flask, jsonify, render_template, url_for, request, redirect, flash, request
 from admin.models import AccessKeys, Objects, Users, UserAdmin, Chats
 from flask_login import login_user, login_required, logout_user
+import yandex
 
 ################# objects ###################
 
@@ -135,7 +136,11 @@ def keys_search():
 def chats_redner():
     """add chat"""
     if request.method == "POST":
-        db.session.add(Chats(region=request.form['region'], link=request.form['link']))
+        
+        # get correct region from yandex
+        region = yandex.get_data(request.form['region'], 'region_city')['region']
+
+        db.session.add(Chats(region=region, link=request.form['link']))
 
         db.session.commit()
 
