@@ -59,7 +59,7 @@ def users_redner():
 @login_required
 def del_users(id):
     """del key"""
-    AccessKeys.query.filter_by(user=id).delete()
+    # AccessKeys.query.filter_by(user=id).delete()
 
     """del users"""
     Users.query.filter_by(id=id).delete()
