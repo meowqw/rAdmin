@@ -97,4 +97,4 @@ def get_data(source, method):
                 'street': street,
                 'house': house}
 
-print(get_data('Алтайскийй край', 'region_city'))
+# print(get_data('Алтайскийй край', 'region_city'))

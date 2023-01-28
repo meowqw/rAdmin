@@ -1,0 +1,49 @@
+{% extends 'admin/master.html' %}
+
+
+
+{% block body %}
+<style>
+    .link {
+        color: #000000;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .link:hover {
+        color: #FF0000;
+    }
+
+    #links {
+        height: 200px;
+        margin-top: 30px;
+    }
+    .item {
+        margin-bottom: 1%;
+    }
+</style>
+<div>
+    <h3>
+        Админ панель(V2.0) для управления контентом TG бота
+    </h3>
+</div>
+<div id="links">
+    <div class="item">
+        <a href="#" class="link">Пользователи</a></br>
+    </div>
+    <div class="item"><a href="#" class="link">Объекты</a></br></div>
+
+    <div class="item"><a href="#" class="link">Чаты</a></br></div>
+
+    <div class="item"><a href="#" class="link">Админ аккаунты</a></br></div>
+
+    <div class="item"><a href="#" class="link">Ключи</a></div>
+
+
+
+</div>
+<button class="btn btn-primary" onclick="location.href='/logout'">Выход</button>
+
+
+
+{% endblock %}

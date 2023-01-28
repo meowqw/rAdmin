@@ -1,7 +1,9 @@
-from flask_login import UserMixin
-
-from admin import db, manager
+from flask_login import UserMixin, current_user
+from flask_admin.contrib.sqla import ModelView
+from flask_admin import AdminIndexView
+from admin import db, manager, new_Admin
 from datetime import datetime, timedelta
+from flask import url_for, redirect
 
 # DB Model USER
 class Users(db.Model):
@@ -64,4 +66,3 @@ class UserAdmin(db.Model, UserMixin):
 @manager.user_loader
 def load_user(user_id):
     return UserAdmin.query.get(user_id)
-

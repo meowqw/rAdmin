@@ -194,9 +194,9 @@ def auth():
             next = request.args.get('next')
 
             if next:
-                return redirect(next)
+                return redirect('/admin')
             else:
-                return redirect(url_for('objects_render'))
+                return redirect('/admin')
         else:
             flash('Login or password is not correct')
     else:
