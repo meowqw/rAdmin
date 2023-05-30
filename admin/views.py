@@ -17,6 +17,8 @@ class MyAdminIndexView(AdminIndexView):
 
 
 class AuthUser(ModelView):
+    column_display_pk = True
+    
     def is_accessible(self):
         return current_user.is_authenticated
     
